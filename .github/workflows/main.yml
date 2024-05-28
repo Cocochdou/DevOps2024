@@ -1,63 +1,46 @@
 name: CI devops 2024
+
 on:
-  #to begin you want to launch this job in main and develop
   push:
     branches: 
-     - main
-     - develop 
+      - main
+      - develop 
   pull_request:
 
 jobs:
   test-backend: 
     runs-on: ubuntu-22.04
     steps:
-     #checkout your github code using actions/checkout@v2.5.0
       - uses: actions/checkout@v2.5.0
-
-     #do the same with another action (actions/setup-java@v3) that enable to setup jdk 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3  
         with:
           java-version: '17'
           distribution: 'adopt'      
-     
-     #finally build your app with the latest command
       - name: Build and test with Maven
         run: |
           cd Java2/simpleapi/simple-api-student-main/simple-api-student-main
           mvn clean verify
 
-   # Define job to build and publish Docker images
   build-and-push-docker-image:
-  needs: test-backend
-  # Run only when code is compiling and tests are passing
-  runs-on: ubuntu-22.04
+    needs: test-backend
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
+      - name: Build and push backend image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Java2/simpleapi/simple-api-student-main/simple-api-student-main
+          tags: ${{ secrets.eldestructor }}/tp-devops-simple-api:latest
+      - name: Build and push database image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./postgres
+          tags: ${{ secrets.eldestructor }}/tp-devops-database:latest
+      - name: Build and push HTTP server image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./HTTP
+          tags: ${{ secrets.eldestructor }}/tp-devops-httpd:latest
 
-  # Steps to perform in job
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2.5.0
-
-    - name: Build and push backend image
-      uses: docker/build-push-action@v3
-      with:
-        # Relative path to the place where source code with Dockerfile is located
-        context: ./Java2/simpleapi/simple-api-student-main/simple-api-student-main
-        # Tags have to be all lower-case
-        tags: ${{secrets.eldestructor}}/tp-devops-simple-api:latest
-
-    - name: Build and push database image
-      uses: docker/build-push-action@v3
-      with:
-        # Relative path to the place where source code with Dockerfile is located
-        context: ./postgres
-        # Tags have to be all lower-case
-        tags: ${{secrets.eldestructor}}/tp-devops-database:latest
-
-    - name: Build and push HTTP server image
-      uses: docker/build-push-action@v3
-      with:
-        # Relative path to the place where source code with Dockerfile is located
-        context: ./HTTP
-        # Tags have to be all lower-case
-        tags: ${{secrets.eldestructor}}/tp-devops-httpd:latest
