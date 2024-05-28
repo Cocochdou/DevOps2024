@@ -1,6 +1,6 @@
 # Corentin DOUCHE - DEVOPS TP1
 
-## TP1 - DOCKER 
+## TP1 PART 1 - DOCKER 
 
 Creating the DockerFile 
 
@@ -139,7 +139,9 @@ networks:
 
 The docker compose is running well, let's go the TP 2
 
-## TP 2  DEVOPS
+## TP 1 PART 2 - DEVOPS
+
+Testcontainers is a Java library that provides lightweight, disposable instances of common databases, Selenium web browsers, or anything else that can run in a Docker container. It is primarily used for integration testing and makes it easier to manage dependencies and configurations for tests that require external resources.
 
 
 
