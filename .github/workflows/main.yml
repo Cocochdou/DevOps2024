@@ -48,7 +48,7 @@ jobs:
           context: ./postgres
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
 
-      - name: Build and push HTTP server image
+      - name: Build and push HTTP server images
         uses: docker/build-push-action@v3
         with:
           context: ./HTTP
