@@ -16,11 +16,11 @@ jobs:
         uses: actions/setup-java@v3  
         with:
           java-version: '17'
-          distribution: 'adopt'      
-      - name: Build and test with Maven
+          distribution: 'adopt'
+      - name: Build and test with Maven and SonarCloud # Updated step to include SonarCloud analysis
         run: |
           cd Java2/simpleapi/simple-api-student-main/simple-api-student-main
-          mvn clean verify
+          mvn -B verify sonar:sonar -Dsonar.projectKey=devops-2024 -Dsonar.organization=devops-school -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} --file ./simple-api/pom.xml
 
   build-and-push-docker-image:
     needs: test-backend
@@ -50,12 +50,13 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
-      - name: Build and push HTTP server images
+      - name: Build and push HTTP server image
         uses: docker/build-push-action@v3
         with:
           context: ./HTTP
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
+
 
 
           
