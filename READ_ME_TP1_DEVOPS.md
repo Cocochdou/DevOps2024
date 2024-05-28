@@ -173,8 +173,21 @@ jobs:
      #finally build your app with the latest command
       - name: Build and test with Maven
         run: |
-          cd Java2/simpleapi/simple-api-student-main/simple-api-student-main ##The path was hard to put 
+          cd Java2/simpleapi/simple-api-student-main/simple-api-student-main ##The path was hard to put
           mvn clean verify
+
+
+Now we added a names to  the 3 images that we want to do, we also add the changment,connecting to docker hub using the token that we put into the secrets of the github
+The docker repo have the 3 new images, so we know it's working.
+
+Now let's do the Sonar Cloud thing.
+1- Create a Sonar Cloud Account
+2- Create an organization and keep the key
+3- Create a project in this organization and keep the key 
+4-link the project to our main.yml using the github secrets variable
+5- We can see that the Sonar Cloud is working, as my report is here on sonar cloud. Tho I failed to pass the test to be a clean code.
+
+
 
 
 
