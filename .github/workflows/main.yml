@@ -24,23 +24,36 @@ jobs:
 
   build-and-push-docker-image:
     needs: test-backend
+    if: github.ref == 'refs/heads/main' # Ensure the job runs only on the main branch
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
+
+      - name: Login to DockerHub # Use GitHub secrets to login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build and push backend image
         uses: docker/build-push-action@v3
         with:
           context: ./Java2/simpleapi/simple-api-student-main/simple-api-student-main
-          tags: eldestructor/tp-devops-simple-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
+
       - name: Build and push database image
         uses: docker/build-push-action@v3
         with:
           context: ./postgres
-          tags: eldestructor/tp-devops-database:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
+
       - name: Build and push HTTP server image
         uses: docker/build-push-action@v3
         with:
           context: ./HTTP
-          tags: eldestructor/tp-devops-httpd:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
+
+
+          
 
