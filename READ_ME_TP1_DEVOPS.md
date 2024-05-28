@@ -143,6 +143,38 @@ The docker compose is running well, let's go the TP 2
 
 Testcontainers is a Java library that provides lightweight, disposable instances of common databases, Selenium web browsers, or anything else that can run in a Docker container. It is primarily used for integration testing and makes it easier to manage dependencies and configurations for tests that require external resources.
 
+2.2 Honnestly, we struggled a bit to do the main.yml working nicely.
+
+there is final version of it 
+
+name: CI devops 2024
+on:
+  #to begin you want to launch this job in main and develop
+  push:
+    branches: 
+     - main
+     - develop 
+  pull_request:
+
+jobs:
+  test-backend: 
+    runs-on: ubuntu-22.04
+    steps:
+     #checkout your github code using actions/checkout@v2.5.0
+      - uses: actions/checkout@v2.5.0
+
+     #do the same with another action (actions/setup-java@v3) that enable to setup jdk 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3  
+        with:
+          java-version: '17'
+          distribution: 'adopt'      ##Here we add some specificity to make everything work
+     
+     #finally build your app with the latest command
+      - name: Build and test with Maven
+        run: |
+          cd Java2/simpleapi/simple-api-student-main/simple-api-student-main ##The path was hard to put 
+          mvn clean verify
 
 
 

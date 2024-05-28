@@ -26,3 +26,38 @@ jobs:
         run: |
           cd Java2/simpleapi/simple-api-student-main/simple-api-student-main
           mvn clean verify
+
+# Define job to build and publish Docker images
+build-and-push-docker-image:
+  needs: test-backend
+  # Run only when code is compiling and tests are passing
+  runs-on: ubuntu-22.04
+
+  # Steps to perform in job
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2.5.0
+
+    - name: Build and push backend image
+      uses: docker/build-push-action@v3
+      with:
+        # Relative path to the place where source code with Dockerfile is located
+        context: ./Java2/simpleapi/simple-api-student-main/simple-api-student-main
+        # Tags have to be all lower-case
+        tags: ${{secrets.eldestructor}}/tp-devops-simple-api:latest
+
+    - name: Build and push database image
+      uses: docker/build-push-action@v3
+      with:
+        # Relative path to the place where source code with Dockerfile is located
+        context: ./postgres
+        # Tags have to be all lower-case
+        tags: ${{secrets.eldestructor}}/tp-devops-database:latest
+
+    - name: Build and push HTTP server image
+      uses: docker/build-push-action@v3
+      with:
+        # Relative path to the place where source code with Dockerfile is located
+        context: ./HTTP
+        # Tags have to be all lower-case
+        tags: ${{secrets.eldestructor}}/tp-devops-httpd:latest
