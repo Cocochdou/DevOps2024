@@ -27,8 +27,8 @@ jobs:
           cd Java2/simpleapi/simple-api-student-main/simple-api-student-main
           mvn clean verify
 
-# Define job to build and publish Docker images
-build-and-push-docker-image:
+   # Define job to build and publish Docker images
+  build-and-push-docker-image:
   needs: test-backend
   # Run only when code is compiling and tests are passing
   runs-on: ubuntu-22.04
