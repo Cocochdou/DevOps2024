@@ -32,15 +32,15 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./Java2/simpleapi/simple-api-student-main/simple-api-student-main
-          tags: ${{ secrets.eldestructor }}/tp-devops-simple-api:latest
+          tags: eldestructor/tp-devops-simple-api:latest
       - name: Build and push database image
         uses: docker/build-push-action@v3
         with:
           context: ./postgres
-          tags: ${{ secrets.eldestructor }}/tp-devops-database:latest
+          tags: eldestructor/tp-devops-database:latest
       - name: Build and push HTTP server image
         uses: docker/build-push-action@v3
         with:
           context: ./HTTP
-          tags: ${{ secrets.eldestructor }}/tp-devops-httpd:latest
+          tags: eldestructor/tp-devops-httpd:latest
 
