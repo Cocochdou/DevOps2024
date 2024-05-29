@@ -1,0 +1,9 @@
+---
+# tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/student_api
+ - name: Run the API container
+  docker_container:
+    name: my_student_api
+    image: eldestructor/tp-devops-simple-api
+    networks:
+     - name: app-network 
+    

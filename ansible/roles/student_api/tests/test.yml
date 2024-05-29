@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/student_api

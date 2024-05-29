@@ -215,6 +215,50 @@ Base commands allow you to interact with hosts defined in the inventory.
 Commands can be executed to test connectivity, gather information, and perform tasks on remote hosts.
 Understanding how to use base commands is essential for managing hosts effectively with Ansible.
 
+Here is the advanced_playbook commented 
+
+- hosts: all  # Specifies that the tasks in this playbook will be applied to all hosts defined in the inventory.
+  gather_facts: false  # Disables the gathering of facts for each host to improve playbook performance.
+  become: true  # Activates privilege escalation, allowing Ansible to execute tasks with root privileges using sudo.
+
+# Install Docker
+  tasks:
+
+  - name: Install device-mapper-persistent-data
+    yum:
+      name: device-mapper-persistent-data
+      state: latest  # Ensures that the package is installed to the latest version available.
+
+  - name: Install lvm2
+    yum:
+      name: lvm2
+      state: latest  # Installs the lvm2 package to manage logical volumes.
+
+  - name: add repo docker
+    command:
+      cmd: sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo  # Adds the Docker repository to the system.
+
+  - name: Install Docker
+    yum:
+      name: docker-ce
+      state: present  # Ensures that the docker-ce package is present on the system.
+
+  - name: Install python3
+    yum:
+      name: python3
+      state: present  # Ensures that Python 3 is available on the system.
+
+  - name: Install docker with Python 3
+    pip:
+      name: docker
+      executable: pip3
+    vars:
+      ansible_python_interpreter: /usr/bin/python3  # Installs the docker Python package with Python 3.
+
+  - name: Make sure Docker is running
+    service: name=docker state=started  # Ensures that the Docker service is running on the hosts.
+    tags: docker  # Tags this task for easy identification.
+
 
 
 

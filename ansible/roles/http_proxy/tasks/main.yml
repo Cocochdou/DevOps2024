@@ -1,0 +1,9 @@
+---
+# tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/http_proxy
+  - name: http proxy
+  docker_container:
+    name: my_proxy
+    image: eldestructor/tp-devops-httpd
+    state: started
+    networks:
+      -name: app-network
