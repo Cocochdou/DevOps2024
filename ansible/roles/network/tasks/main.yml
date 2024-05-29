@@ -1,6 +1,6 @@
 ---
 # tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/network
  - name: Create Docker network
-  docker_network:
+   docker_network:
     name: app-network
     state: present

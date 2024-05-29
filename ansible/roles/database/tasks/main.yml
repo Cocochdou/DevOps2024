@@ -1,14 +1,22 @@
 ---
-# tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/database
+# tasks file for /mnt/c/Users/shirl/Desktop/Cours/EPF/4A/DevOps/ansible/roles/database
+- name: Pull the database Image
+  docker_image:
+    name: eldestructor/tp-devops-database
+    source: pull
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
- - name: Run the database container
+- name: Run Database Container
   docker_container:
     name: my_postgres_container
-    image: eldestructor/tp-devops-database
-    state: started
+    image: eldestructor/tp-devops-database:latest
     networks:
       - name: app-network
     env:
       POSTGRES_DB: db
       POSTGRES_USER: usr
       POSTGRES_PASSWORD: pwd
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+

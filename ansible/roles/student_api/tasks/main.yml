@@ -1,9 +1,20 @@
+
 ---
-# tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/student_api
- - name: Run the API container
+# tasks file for /mnt/c/Users/shirl/Desktop/Cours/EPF/4A/DevOps/ansible/roles/app
+- name: Pull the API Image
+  docker_image:
+    name: eldestructor/tp-devops-simple-api
+    tag: latest
+    source: pull
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+- name: Run API Container
   docker_container:
     name: my_student_api
-    image: eldestructor/tp-devops-simple-api
+    image: eldestructor/tp-devops-simple-api:latest
     networks:
-     - name: app-network 
+      - name: app-network
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
     

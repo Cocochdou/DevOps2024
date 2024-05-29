@@ -1,9 +1,21 @@
+
 ---
-# tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/http_proxy
-  - name: http proxy
+# tasks file for /mnt/c/Users/shirl/Desktop/Cours/EPF/4A/DevOps/ansible/roles/proxy
+- name: Pull the Http Image
+  docker_image:
+    name: eldestructor/tp-devops-httpd
+    tag: latest
+    source: pull
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+- name: Run HTTPD Server Container
   docker_container:
-    name: my_proxy
-    image: eldestructor/tp-devops-httpd
-    state: started
+    name: myHttpdServer
+    image: eldestructor/tp-devops-httpd:latest
     networks:
-      -name: app-network
+      - name: app-network
+    ports:
+      - "80:80"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
