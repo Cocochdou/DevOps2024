@@ -188,6 +188,9 @@ Now let's do the Sonar Cloud thing.
 5- We can see that the Sonar Cloud is working, as my report is here on sonar cloud. Tho I failed to pass the test to be a clean code.
 
 
+For the bonus, we splitted the main.yml in two parts, so it is doing the ttest-backend at first, and then build the images and push them if it's compiling everything.
+This is due to the on command of the two .yml files.
+
 
 
 
