@@ -191,7 +191,29 @@ Now let's do the Sonar Cloud thing.
 For the bonus, we splitted the main.yml in two parts, so it is doing the ttest-backend at first, and then build the images and push them if it's compiling everything.
 This is due to the on command of the two .yml files.
 
+## PART 3 : ANSIBLE SERVER 
 
+Inventory
+The inventory file for this Ansible project is located at TP1 DEVOPS/ansible/inventories/setup.yml. This file defines the hosts and groups that Ansible will manage, along with any variables associated with them.
+
+Comments:
+The inventory file organizes hosts into groups and sets variables for them.
+Hosts can be grouped by their roles or environments.
+Variables can be set at both the group and host level to customize Ansible behavior.
+Base Commands
+Test Inventory with Ping Command
+The ping module verifies connectivity to the hosts defined in the inventory file. It's a simple way to check if Ansible can communicate with the hosts.
+
+Gather Facts
+The setup module collects facts about the hosts, such as OS distribution, network interfaces, and hardware details. Facts are useful for understanding the environment before making changes.
+
+Remove Apache HTTP Server
+The yum module can uninstall packages from the hosts. This command ensures that the specified package is absent from the servers.
+
+Comments:
+Base commands allow you to interact with hosts defined in the inventory.
+Commands can be executed to test connectivity, gather information, and perform tasks on remote hosts.
+Understanding how to use base commands is essential for managing hosts effectively with Ansible.
 
 
 

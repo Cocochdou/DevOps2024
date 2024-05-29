@@ -1,0 +1,7 @@
+all:
+ vars:
+   ansible_user: centos
+   ansible_ssh_private_key_file: "/mnt/host/c/Users/Coren/TP1 DEVOPS/SSH/id_rsa"
+ children:
+   prod:
+     hosts: corentin.douche.takima.cloud
