@@ -1,7 +1,7 @@
 # tasks file for /mnt/host/c/Users/Coren/TP1 DEVOPS/ansible/roles/docker
 
 # Install Docker
-- name: Install device-mapper-persistent-data
+ - name: Install device-mapper-persistent-data
   yum:
     name: device-mapper-persistent-data
     state: latest
